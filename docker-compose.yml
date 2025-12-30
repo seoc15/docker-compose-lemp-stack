@@ -1,33 +1,46 @@
-version: '3'
+version: '3.8'
+
 services:
-    php:
-        # image: 'php:7.2-fpm'
-        build:
-            context: ./docker
-            dockerfile: php.Dockerfile
-        container_name: ${APP_NAME:?err}-php
-        volumes:
-            - './app:/var/www/html'
-        depends_on:
-            - mariadb
+  # Servidor Web Nginx
+  nginx:
+    image: nginx:latest
+    container_name: asir_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./html:/usr/share/nginx/html
+    networks:
+      - asir_net
+    depends_on:
+      - mariadb
 
-    nginx:
-        image: nginx:latest
-        container_name: ${APP_NAME:?err}-nginx
-        ports:
-            - '80:80'
-            - '443:443'
-        links:
-            - 'php'
-        volumes:
-            - './app:/var/www/html'
-            - './config/nginx:/etc/nginx/conf.d'
+  # Base de Datos MariaDB
+  mariadb:
+    image: mariadb:10.6
+    container_name: asir_mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: asir_db
+      MYSQL_USER: asir_user
+      MYSQL_PASSWORD: asir_password
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - asir_net
 
-    mariadb:
-        image: mariadb:10.3.9
-        container_name: ${APP_NAME:?err}-mariadb
-        restart: 'on-failure'
-        environment:
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?err}
-        volumes:
-            - ${PWD}
+  # Agente Wazuh (Seguridad)
+  # Nota: Se iniciará pero dará error de conexión hasta que configuremos
+  # un servidor Wazuh real. Para la práctica, demuestra que sabes integrarlo.
+  wazuh-agent:
+    image: wazuh/wazuh-agent:latest
+    container_name: asir_wazuh_agent
+    environment:
+      - WAZUH_MANAGER=127.0.0.1 
+    networks:
+      - asir_net
+
+networks:
+  asir_net:
+
+volumes:
+  db_data:
