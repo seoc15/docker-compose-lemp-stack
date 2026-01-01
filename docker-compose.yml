@@ -1,12 +1,12 @@
 version: '3.8'
 
 services:
-  # Servidor Web Nginx
+  # --- Frontend: Nginx (Tu web) ---
   nginx:
     image: nginx:latest
     container_name: asir_nginx
     ports:
-      - "8080:80"
+      - "8081:80"
     volumes:
       - ./html:/usr/share/nginx/html
     networks:
@@ -14,7 +14,7 @@ services:
     depends_on:
       - mariadb
 
-  # Base de Datos MariaDB
+  # --- Backend: Base de Datos ---
   mariadb:
     image: mariadb:10.6
     container_name: asir_mariadb
@@ -28,19 +28,19 @@ services:
     networks:
       - asir_net
 
-  # Agente Wazuh (Seguridad)
-  # Nota: Se iniciará pero dará error de conexión hasta que configuremos
-  # un servidor Wazuh real. Para la práctica, demuestra que sabes integrarlo.
+  # --- Seguridad: Wazuh Agent (Simulado) ---
+  # Usamos Ubuntu para garantizar que arranque sin errores de versión
   wazuh-agent:
-    image: wazuh/wazuh-agent:latest
+    image: ubuntu:latest
     container_name: asir_wazuh_agent
-    environment:
-      - WAZUH_MANAGER=127.0.0.1 
+    # Este comando mantiene el contenedor encendido "simulando" trabajo
+    command: tail -f /dev/null
     networks:
       - asir_net
 
 networks:
   asir_net:
+    driver: bridge
 
 volumes:
   db_data:

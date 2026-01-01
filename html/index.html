@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 98 Docker Host</title>
+    <style>
+        /* Fuente estilo consola retro */
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'VT323', monospace; /* Fuente retro */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* URL directa a un wallpaper clásico de Windows 98 */
+            background-image: url('https://win98icons.alexmeub.com/images/background-color.png');
+            /* Alternativa más "nubes": url('https://wallpapercave.com/wp/wp6741641.jpg'); */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: black;
+            overflow: hidden;
+        }
+
+        /* Ventana estilo Windows 9x */
+        .retro-window {
+            background-color: #c0c0c0; /* Gris clásico de Windows */
+            border-top: 3px solid #ffffff;
+            border-left: 3px solid #ffffff;
+            border-right: 3px solid #808080;
+            border-bottom: 3px solid #808080;
+            box-shadow: 2px 2px 0px #000000;
+            padding: 4px;
+            max-width: 80%;
+        }
+
+        .title-bar {
+            background: linear-gradient(90deg, #000080, #1084d0);
+            color: white;
+            padding: 4px 8px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title-bar-controls div {
+            width: 20px;
+            height: 20px;
+            background-color: #c0c0c0;
+            border-top: 2px solid #ffffff;
+            border-left: 2px solid #ffffff;
+            border-right: 2px solid #808080;
+            border-bottom: 2px solid #808080;
+            text-align: center;
+            line-height: 16px;
+            font-size: 14px;
+            color: black;
+            margin-left: 2px;
+            display: inline-block;
+            cursor: default;
+        }
+
+        .window-content {
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        /* El mensaje principal enorme */
+        h1 {
+            font-size: 4rem;
+            font-weight: normal;
+            margin: 0;
+            line-height: 1;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0px #808080;
+        }
+
+        .details {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            color: #404040;
+        }
+        
+        .icon-docker::before { content: '[🐋] '; }
+        .icon-win::before { content: '[💾] '; }
+
+    </style>
+</head>
+<body>
+
+    <div class="retro-window">
+        <div class="title-bar">
+            <span>System Properties - Docker Environment</span>
+            <div class="title-bar-controls">
+                <div>_</div>
+                <div>□</div>
+                <div>X</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h1>ESTE SERVIDOR LOCAL ESTÁ CORRIENDO EN UN DOCKER EN WINDOWS</h1>
+            
+            <div class="details">
+                <span class="icon-win">Host: Win11 (Retro Mode)</span>
+                <span>|</span>
+                <span class="icon-docker">Engine: Docker Desktop</span>
+            </div>
+            <p style="margin-top: 30px; font-size: 1.2rem;">Press F5 to refresh system status...</p>
+        </div>
+    </div>
+
+</body>
+</html>

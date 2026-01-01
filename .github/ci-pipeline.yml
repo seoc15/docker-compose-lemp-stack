@@ -1,0 +1,25 @@
+name: CI - Validacion Infraestructura ASIR
+
+# ¿Cuándo se ejecuta? Al hacer push o pull request a la rama principal
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+
+jobs:
+  validacion-infraestructura:
+    runs-on: ubuntu-latest  # Usamos un servidor Linux de GitHub
+    
+    steps:
+      # Paso 1: Descargar tu código
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      # Paso 2: Comprobar que el archivo docker-compose es válido
+      - name: Validar sintaxis Docker Compose
+        run: docker-compose config
+        
+      # Paso 3: (Opcional) Mensaje de éxito
+      - name: Aviso de éxito
+        run: echo "¡La configuración de Docker es correcta! El pipeline ha pasado."
