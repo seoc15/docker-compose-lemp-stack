@@ -18,7 +18,7 @@ jobs:
 
       # Paso 2: Comprobar que el archivo docker-compose es válido
       - name: Validar sintaxis Docker Compose
-        run: docker-compose config
+        run: docker compose config
         
       # Paso 3: (Opcional) Mensaje de éxito
       - name: Aviso de éxito
